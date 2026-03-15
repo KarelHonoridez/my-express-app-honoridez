@@ -7,11 +7,11 @@
 </head>
 <body>
     <h1>Hello from a static file!</h1>
-    <form id ="item-form">
-        <input type ="text" id ="item-input" placeholder ="Add an item" required>
-        <button type ="submit">Add</button>
+    <form id="item-form">
+        <input type="text" id="item-input" placeholder="Add an item" required>
+        <button type="submit">Add</button>
     </form>
-    <ul id ="item-list"></ul>
+    <ul id="item-list"></ul>
     <script>
         const form = document.getElementById('item-form');
         const input = document.getElementById('item-input');
@@ -21,24 +21,23 @@
             e.preventDefault();
             const item = input.value.trim();
             if (item) {
-               await fetch('/items', {
+                await fetch('/items', {
                     method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringfy({item})
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ item })
                 });
                 input.value = '';
-                loadItems(); 
+                loadItems();
             }
         });
 
         async function loadItems() {
-            const response = await fetch ('/items');
+            const response = await fetch('/items');
             const items = await response.json();
-            list.innerHTML = items.map(item => `<li>${item}</;i>`).join('');
+            list.innerHTML = items.map(item => `<li>${item}</li>`).join('');
         }
 
         loadItems();
     </script>
-
 </body>
 </html>
